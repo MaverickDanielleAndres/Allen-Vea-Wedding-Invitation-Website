@@ -42,7 +42,7 @@ export default function DressCodeSection() {
   }, [])
 
   return (
-    <section ref={sectionRef} id="dresscode" className="py-20 sm:py-28 px-5 sm:px-8 bg-sage/5">
+    <section ref={sectionRef} id="dresscode" className="py-20 sm:py-28 px-5 sm:px-8 bg-white">
       <div className="max-w-5xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-16 sm:mb-20 dresscode-animate">

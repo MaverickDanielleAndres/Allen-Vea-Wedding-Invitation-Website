@@ -42,6 +42,26 @@ export default function TimelineSection() {
         )
       })
 
+      // Animate circles
+      gsap.utils.toArray<HTMLElement>('.timeline-circle').forEach((circle, i) => {
+        gsap.fromTo(
+          circle,
+          { scale: 0, opacity: 0 },
+          {
+            scale: 1,
+            opacity: 1,
+            duration: 0.5,
+            ease: 'back.out(1.7)',
+            scrollTrigger: {
+              trigger: circle,
+              start: 'top 85%',
+              toggleActions: 'play none none reverse',
+            },
+            delay: i * 0.08,
+          }
+        )
+      })
+
       const line = sectionRef.current?.querySelector('.timeline-line')
       if (line) {
         gsap.fromTo(
@@ -64,7 +84,7 @@ export default function TimelineSection() {
   }, [])
 
   return (
-    <section ref={sectionRef} id="timeline" className="py-20 sm:py-28 px-5 sm:px-8 bg-sage/5">
+    <section ref={sectionRef} id="timeline" className="py-20 sm:py-28 px-5 sm:px-8 bg-white">
       <div className="max-w-3xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-16 sm:mb-20">
@@ -86,8 +106,8 @@ export default function TimelineSection() {
                   i % 2 === 0 ? 'sm:flex-row' : 'sm:flex-row-reverse'
                 }`}
               >
-                {/* Dot */}
-                <div className="absolute left-[18px] sm:left-1/2 sm:-translate-x-1/2 top-1.5 w-[11px] h-[11px] rounded-full border-2 border-sage bg-background z-10" />
+                {/* Circle dot - centered on line for both mobile and desktop */}
+                <div className="absolute left-[23px] sm:left-1/2 -translate-x-1/2 top-1.5 w-[11px] h-[11px] rounded-full border-2 border-sage bg-white z-10 timeline-circle" />
 
                 {/* Content */}
                 <div className={`ml-12 sm:ml-0 sm:w-[45%] ${i % 2 === 0 ? 'sm:text-right sm:pr-10' : 'sm:text-left sm:pl-10'}`}>

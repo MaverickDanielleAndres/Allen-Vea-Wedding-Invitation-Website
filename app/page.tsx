@@ -7,6 +7,44 @@ import dynamic from 'next/dynamic'
 
 gsap.registerPlugin(ScrollTrigger)
 
+/* ───── Background Music Hook ───── */
+function useBackgroundMusic(shouldPlay: boolean) {
+  const audioRef = useRef<HTMLAudioElement | null>(null)
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    if (!audioRef.current) {
+      audioRef.current = new Audio('/BGMUSIC.webm')
+      audioRef.current.loop = true
+    }
+
+    if (shouldPlay && audioRef.current) {
+      // Start immediately at audible volume
+      audioRef.current.volume = 0.4
+      audioRef.current.play().catch(error => {
+        console.log('Audio autoplay prevented:', error)
+      })
+
+      // Quick fade to target volume
+      gsap.to(audioRef.current, { 
+        volume: 0.5, 
+        duration: 1, 
+        ease: 'linear' 
+      })
+    }
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause()
+        audioRef.current.currentTime = 0
+      }
+    }
+  }, [shouldPlay])
+
+  return null
+}
+
 const EnvelopeAnimation = dynamic(() => import('@/components/wedding/EnvelopeAnimation'), { ssr: false })
 const StaggeredMenu = dynamic(() => import('@/components/wedding/StaggeredMenu'), { ssr: false })
 const HeroSection = dynamic(() => import('@/components/wedding/HeroSection'), { ssr: false })
@@ -40,54 +78,107 @@ const menuItems = [
 export default function WeddingPage() {
   const [envelopeComplete, setEnvelopeComplete] = useState(false)
   const mainRef = useRef<HTMLDivElement>(null)
+  const contentWrapperRef = useRef<HTMLDivElement>(null)
+  const envelopeRef = useRef<HTMLDivElement>(null)
 
   const [showMain, setShowMain] = useState(false)
+  const [startMusic, setStartMusic] = useState(false)
+
+  // Start background music IMMEDIATELY when envelope completes (intro fades out)
+  useBackgroundMusic(startMusic)
+
+  // Ensure page starts at the top on mount
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' })
+    document.documentElement.scrollTop = 0
+    document.body.scrollTop = 0
+  }, [])
 
   const handleEnvelopeComplete = useCallback(() => {
-    setEnvelopeComplete(true)
-    // Wait for envelope AND text to fade-out completely before showing main content
+    // Start main content immediately - it will fade in UNDER the envelope
+    setShowMain(true)
+    // Ensure we're at the absolute top
+    window.scrollTo({ top: 0, behavior: 'instant' })
+    document.documentElement.scrollTop = 0
+    document.body.scrollTop = 0
+    
+    // Start fading out envelope after hero starts fading in
     setTimeout(() => {
-      setShowMain(true)
-    }, 1200)
+      if (envelopeRef.current) {
+        gsap.to(envelopeRef.current, {
+          opacity: 0,
+          duration: 1.2,
+          ease: 'power1.out',
+          onComplete: () => {
+            setEnvelopeComplete(true)
+          }
+        })
+      }
+    }, 300)
+  }, [])
+
+  const handleMusicStart = useCallback(() => {
+    // Start music immediately after Vea Lee Mantilla finishes typing
+    setStartMusic(true)
   }, [])
 
   useLayoutEffect(() => {
-    if (!showMain || !mainRef.current) return
+    if (!showMain || !mainRef.current || !contentWrapperRef.current) return
     
-    // FORCE scroll to absolute top - MULTIPLE times to ensure it stays
-    const forceTop = () => {
+    // CRITICAL: Force scroll to absolute top IMMEDIATELY
+    const forceScrollToTop = () => {
+      if (contentWrapperRef.current) {
+        contentWrapperRef.current.scrollTop = 0
+      }
       window.scrollTo({ top: 0, behavior: 'instant' })
       document.documentElement.scrollTop = 0
       document.body.scrollTop = 0
     }
     
-    forceTop()
-    requestAnimationFrame(forceTop)
+    // Execute multiple times
+    forceScrollToTop()
+    requestAnimationFrame(forceScrollToTop)
+    setTimeout(forceScrollToTop, 0)
     
-    // Lock scroll position at top during fade-in - STRONG lock
+    // Prevent ANY scrolling during fade-in
     const preventScroll = (e: Event) => {
       e.preventDefault()
-      forceTop()
+      e.stopPropagation()
+      forceScrollToTop()
     }
     
+    // Lock all scroll methods
+    const wrapper = contentWrapperRef.current
+    wrapper.addEventListener('scroll', preventScroll, { passive: false, capture: true })
     window.addEventListener('scroll', preventScroll, { passive: false, capture: true })
     window.addEventListener('wheel', preventScroll, { passive: false, capture: true })
     window.addEventListener('touchmove', preventScroll, { passive: false, capture: true })
+    document.addEventListener('scroll', preventScroll, { passive: false, capture: true })
     
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        mainRef.current,
+      // Fade in from black immediately, UNDER the envelope
+      gsap.fromTo(mainRef.current,
         { opacity: 0 },
         { 
           opacity: 1, 
-          duration: 3.5, 
-          ease: 'power3.out',
-          delay: 0.2,
+          duration: 2.0,
+          ease: 'power1.inOut',
           onComplete: () => {
-            // Remove ALL scroll locks after fade completes
+            // Unlock scrolling
+            wrapper.removeEventListener('scroll', preventScroll, { capture: true } as any)
             window.removeEventListener('scroll', preventScroll, { capture: true } as any)
             window.removeEventListener('wheel', preventScroll, { capture: true } as any)
             window.removeEventListener('touchmove', preventScroll, { capture: true } as any)
+            document.removeEventListener('scroll', preventScroll, { capture: true } as any)
+            
+            // Change to normal layout
+            if (mainRef.current) {
+              mainRef.current.classList.remove('fixed', 'inset-0')
+              mainRef.current.classList.add('relative')
+              mainRef.current.style.zIndex = 'auto'
+            }
+            
+            forceScrollToTop()
           }
         }
       )
@@ -95,22 +186,43 @@ export default function WeddingPage() {
     
     return () => {
       ctx.revert()
+      wrapper.removeEventListener('scroll', preventScroll, { capture: true } as any)
       window.removeEventListener('scroll', preventScroll, { capture: true } as any)
       window.removeEventListener('wheel', preventScroll, { capture: true } as any)
       window.removeEventListener('touchmove', preventScroll, { capture: true } as any)
+      document.removeEventListener('scroll', preventScroll, { capture: true } as any)
     }
   }, [showMain])
 
   return (
     <>
-      {/* Envelope intro animation */}
+      {/* Envelope intro animation - stays visible during crossfade */}
       {!envelopeComplete && (
-        <EnvelopeAnimation onComplete={handleEnvelopeComplete} />
+        <div ref={envelopeRef} style={{ position: 'fixed', inset: 0, zIndex: 10000 }}>
+          <EnvelopeAnimation 
+            onComplete={handleEnvelopeComplete}
+            onMusicStart={handleMusicStart}
+          />
+        </div>
       )}
 
-      {/* Main wedding content - ONLY show when envelope is complete AND showMain is true */}
-      {envelopeComplete && showMain && (
-        <div ref={mainRef} style={{ opacity: 0 }}>
+      {/* Main wedding content - fades in UNDER envelope */}
+      {showMain && (
+        <div 
+          ref={mainRef} 
+          className="fixed inset-0 bg-black"
+          style={{ 
+            opacity: 0,
+            zIndex: 9999,
+            overflow: 'hidden'
+          }}
+        >
+          {/* Content wrapper that will become scrollable */}
+          <div 
+            ref={contentWrapperRef}
+            className="w-full h-full overflow-y-auto overflow-x-hidden"
+            style={{ scrollBehavior: 'smooth' }}
+          >
           {/* Navigation */}
           <StaggeredMenu items={menuItems} />
 
@@ -141,6 +253,7 @@ export default function WeddingPage() {
               Made with love
             </p>
           </footer>
+          </div>
         </div>
       )}
     </>

@@ -5,15 +5,18 @@ import { gsap } from 'gsap'
 
 interface EnvelopeAnimationProps {
   onComplete: () => void
+  onMusicStart?: () => void
 }
 
 /* ───── Dramatic Typing Sub-component ───── */
 function DramaticTyping({
   lines,
   onDone,
+  onVeaComplete,
 }: {
   lines: { text: string; className: string }[]
   onDone: () => void
+  onVeaComplete?: () => void
 }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [displayed, setDisplayed] = useState('')
@@ -46,6 +49,11 @@ function DramaticTyping({
       }, speed)
       return () => clearTimeout(timer)
     } else {
+      // Trigger music callback when "Vea Lee Mantilla" finishes (line index 2)
+      if (lineIdx === 2 && onVeaComplete) {
+        onVeaComplete()
+      }
+      
       const pause = lineIdx < lines.length - 1 ? 800 : 0
       const timer = setTimeout(() => {
         if (lineIdx < lines.length - 1) {
@@ -60,13 +68,12 @@ function DramaticTyping({
 
   useEffect(() => {
     if (done && containerRef.current) {
+      // Quick fade for typing text
       gsap.to(containerRef.current, {
         opacity: 0,
-        duration: 2.0,
-        ease: 'power3.out',
-        onComplete: () => {
-          setTimeout(onDone, 300)
-        }
+        duration: 1.0,
+        ease: 'power2.out',
+        onComplete: onDone
       })
     }
   }, [done, onDone])
@@ -105,7 +112,7 @@ function DramaticTyping({
 }
 
 /* ───── Main Envelope Animation ───── */
-export default function EnvelopeAnimation({ onComplete }: EnvelopeAnimationProps) {
+export default function EnvelopeAnimation({ onComplete, onMusicStart }: EnvelopeAnimationProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const envelopeWrapperRef = useRef<HTMLDivElement>(null)
   const cardRef = useRef<HTMLDivElement>(null)
@@ -254,28 +261,27 @@ export default function EnvelopeAnimation({ onComplete }: EnvelopeAnimationProps
   }, [])
 
   const handleTyping2Done = useCallback(() => {
-    setTimeout(() => {
-      onComplete()
-      setTimeout(() => setStage('done'), 1500)
-    }, 2000)
+    // Signal completion immediately - parent will handle the crossfade
+    onComplete()
   }, [onComplete])
 
   const sentence1Lines = [
-    { text: 'By the grace of God', className: 'font-sans text-2xl sm:text-4xl md:text-5xl text-white leading-relaxed' },
-    { text: 'and with the blessings of our families...', className: 'font-sans text-2xl sm:text-4xl md:text-5xl text-white leading-relaxed' },
+    { text: 'By the grace of God', className: 'font-sans text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/80 tracking-[0.12em] leading-relaxed' },
+    { text: 'and with the blessings', className: 'font-sans text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/80 tracking-[0.12em] leading-relaxed' },
+    { text: 'of our families...', className: 'font-sans text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/80 tracking-[0.12em] leading-relaxed' }
   ]
 
   const sentence2Lines = [
-    { text: 'Allen Bagaoisan', className: 'font-serif text-4xl sm:text-5xl md:text-6xl text-white leading-relaxed' },
-    { text: 'and', className: 'font-sans text-xl sm:text-xl text-white/60 tracking-[0.3em] uppercase leading-relaxed' },
-    { text: 'Vea Lee Mantilla', className: 'font-serif text-4xl sm:text-5xl md:text-6xl text-white leading-relaxed' },
-    { text: 'invites you to join us in the celebration of our marriage', className: 'font-sans text-base sm:text-base md:text-lg text-white/80 tracking-[0.12em] leading-relaxed mt-2' },
+    { text: 'Allen Bagaoisan', className: 'font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white leading-relaxed' },
+    { text: 'and', className: 'font-sans text-2xl sm:text-3xl md:text-4xl text-white/60 tracking-[0.3em] uppercase leading-relaxed' },
+    { text: 'Vea Lee Mantilla', className: 'font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white leading-relaxed' },
+    { text: 'invites you to join us in the celebration of our marriage', className: 'font-sans text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/80 tracking-[0.12em] leading-relaxed mt-2' },
   ]
 
   return (
     <div
       ref={containerRef}
-      className={`fixed inset-0 z-[100] flex items-center justify-center transition-opacity duration-1000 overflow-hidden ${stage === 'done' ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+      className={`fixed inset-0 z-[100] flex items-center justify-center overflow-hidden ${stage === 'done' ? '' : 'opacity-100'}`}
       style={{ background: 'linear-gradient(180deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%)' }}
     >
       {/* Background image - brighter/grayish */}
@@ -339,7 +345,7 @@ export default function EnvelopeAnimation({ onComplete }: EnvelopeAnimationProps
               src="/invitationcard.png"
               alt="Wedding Invitation"
               className="w-full h-full object-contain rounded-sm"
-              style={{ boxShadow: '0 15px 50px rgba(0,0,0,0.5)', background: 'transparent' }}
+              style={{ background: 'transparent' }}
             />
           </div>
 
@@ -448,7 +454,11 @@ export default function EnvelopeAnimation({ onComplete }: EnvelopeAnimationProps
       {/* ─── TYPING STAGE 2 ─── */}
       {stage === 'typing2' && (
         <div className="absolute inset-0 flex items-center justify-center z-20">
-          <DramaticTyping lines={sentence2Lines} onDone={handleTyping2Done} />
+          <DramaticTyping 
+            lines={sentence2Lines} 
+            onDone={handleTyping2Done}
+            onVeaComplete={onMusicStart}
+          />
         </div>
       )}
     </div>
