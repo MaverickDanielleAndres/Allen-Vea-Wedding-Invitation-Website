@@ -289,11 +289,11 @@ export default function StaggeredMenu({
           aria-hidden={!open}
         >
           <div className="flex-1 flex flex-col gap-5">
-            <ul className="list-none m-0 p-0 flex flex-col gap-3" role="list">
+            <ul className="list-none m-0 p-0 flex flex-col gap-6" role="list">
               {items.map((it, idx) => (
                 <li className="relative overflow-hidden leading-none" key={it.label + idx}>
                   <a
-                    className="relative font-sans font-semibold text-3xl sm:text-4xl cursor-pointer leading-none tracking-tight uppercase inline-block no-underline pr-4 text-foreground transition-colors duration-150 hover:text-sage"
+                    className="relative font-sans font-semibold text-2xl sm:text-3xl cursor-pointer leading-none tracking-wide inline-block no-underline pr-4 text-foreground transition-colors duration-150 hover:text-sage"
                     href={it.link}
                     aria-label={it.ariaLabel}
                     onClick={(e) => handleNav(e, it.link)}

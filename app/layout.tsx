@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   title: 'Allen & Vea | Wedding Invitation',
   description: 'You are cordially invited to celebrate the union of Allen Bogaoisan and Vea Lee Mantilla on March 28, 2026 in Hawaii.',
   generator: 'v0.app',
+  icons: {
+    icon: '/logowithoutname.png',
+  },
 }
 
 export const viewport: Viewport = {
@@ -35,8 +38,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${greatVibes.variable} ${raleway.variable}`}>
-      <body className="font-sans antialiased bg-background text-foreground overflow-x-hidden">
+    <html lang="en" className={`${greatVibes.variable} ${raleway.variable}`} suppressHydrationWarning>
+      <body className="font-sans antialiased bg-background text-foreground overflow-x-hidden" suppressHydrationWarning>
         {children}
       </body>
     </html>

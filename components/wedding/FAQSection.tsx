@@ -115,11 +115,16 @@ export default function FAQSection() {
           <div className="w-16 h-px bg-sage mx-auto mt-5" />
         </div>
 
-        {/* FAQ items */}
-        <div>
-          {faqs.map((faq, i) => (
-            <FAQItem key={faq.q} faq={faq} index={i} />
-          ))}
+        {/* FAQ items in 3D shadow container */}
+        <div className="bg-white rounded-lg p-6 sm:p-8 md:p-10" style={{
+          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.12), 0 8px 25px rgba(0, 0, 0, 0.08), 0 2px 10px rgba(0, 0, 0, 0.06)',
+          transform: 'translateZ(0)'
+        }}>
+          <div>
+            {faqs.map((faq, i) => (
+              <FAQItem key={faq.q} faq={faq} index={i} />
+            ))}
+          </div>
         </div>
       </div>
     </section>

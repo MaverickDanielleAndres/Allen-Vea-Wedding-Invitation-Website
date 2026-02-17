@@ -73,7 +73,7 @@ export default function GallerySection() {
 
   const modalTouchStart = useRef(0)
 
-  // Infinite scroll loop
+  // Infinite scroll loop with GSAP auto-scroll
   useEffect(() => {
     const container = scrollContainerRef.current
     if (!container) return
@@ -93,7 +93,61 @@ export default function GallerySection() {
     // Set initial position to middle
     container.scrollLeft = container.scrollWidth / 4
 
-    return () => container.removeEventListener('scroll', handleScroll)
+    // GSAP auto-scroll animation - smooth continuous scroll
+    let scrollTween: gsap.core.Tween
+    let isPaused = false
+    
+    const startAutoScroll = () => {
+      if (!container) return
+      const scrollWidth = container.scrollWidth / 2
+      const currentScroll = container.scrollLeft
+      const remaining = scrollWidth - currentScroll
+      const duration = remaining / 30 // 30 pixels per second
+      
+      scrollTween = gsap.to(container, {
+        scrollLeft: scrollWidth,
+        duration: duration,
+        ease: 'none',
+        onComplete: () => {
+          container.scrollLeft = 0
+          if (!isPaused) startAutoScroll()
+        }
+      })
+    }
+
+    // Pause on hover/touch
+    const pauseScroll = () => {
+      isPaused = true
+      if (scrollTween) scrollTween.pause()
+    }
+    
+    const resumeScroll = () => {
+      isPaused = false
+      if (scrollTween) {
+        scrollTween.kill()
+      }
+      startAutoScroll()
+    }
+
+    container.addEventListener('mouseenter', pauseScroll)
+    container.addEventListener('mouseleave', resumeScroll)
+    container.addEventListener('touchstart', pauseScroll)
+    container.addEventListener('touchend', resumeScroll)
+
+    // Start after brief delay
+    const timeoutId = setTimeout(() => {
+      startAutoScroll()
+    }, 1000)
+
+    return () => {
+      container.removeEventListener('scroll', handleScroll)
+      container.removeEventListener('mouseenter', pauseScroll)
+      container.removeEventListener('mouseleave', resumeScroll)
+      container.removeEventListener('touchstart', pauseScroll)
+      container.removeEventListener('touchend', resumeScroll)
+      clearTimeout(timeoutId)
+      if (scrollTween) scrollTween.kill()
+    }
   }, [])
 
   // GSAP entrance
