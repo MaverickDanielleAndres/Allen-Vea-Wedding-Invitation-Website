@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 60 20% 97%;
+    --foreground: 0 0% 8%;
+    --card: 60 15% 95%;
+    --card-foreground: 0 0% 8%;
+    --popover: 60 20% 97%;
+    --popover-foreground: 0 0% 8%;
+    --primary: 143 25% 55%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 60 10% 92%;
+    --secondary-foreground: 0 0% 15%;
+    --muted: 60 10% 92%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 43 72% 55%;
+    --accent-foreground: 0 0% 8%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 143 15% 80%;
+    --input: 143 15% 80%;
+    --ring: 143 25% 55%;
+    --chart-1: 143 25% 55%;
+    --chart-2: 43 72% 55%;
+    --chart-3: 0 0% 8%;
+    --chart-4: 60 20% 97%;
+    --chart-5: 0 0% 100%;
+    --radius: 0.5rem;
+    /* Sage Green Palette */
+    --sage: 143 25% 55%;
+    --sage-light: 143 25% 68%;
+    --sage-dark: 143 25% 42%;
+    --sage-darker: 143 25% 30%;
+    --sage-darkest: 143 25% 20%;
+    --gold: 43 72% 55%;
+    --cream: 60 20% 97%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--cream));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--sage));
+  border-radius: 999px;
+}
+
+/* Selection color */
+::selection {
+  background: hsl(143 25% 55% / 0.3);
+  color: hsl(0 0% 8%);
+}
