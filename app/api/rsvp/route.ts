@@ -3,9 +3,11 @@ import { Resend } from 'resend'
 
 export async function POST(request: Request) {
   try {
-    // Validate API key and email
+    // Validate API key and resolve email configuration
     const apiKey = process.env.RESEND_API_KEY
-    const fromEmail = process.env.RESEND_FROM_EMAIL
+    const configuredEmail = process.env.RESEND_FROM_EMAIL
+    const notifyEmail = process.env.RSVP_NOTIFY_EMAIL || configuredEmail
+    const senderEmail = process.env.RESEND_SENDER_EMAIL || 'onboarding@resend.dev'
 
     if (!apiKey) {
       console.error('RESEND_API_KEY is not set')
@@ -15,10 +17,10 @@ export async function POST(request: Request) {
       )
     }
 
-    if (!fromEmail) {
-      console.error('RESEND_FROM_EMAIL is not set')
+    if (!notifyEmail) {
+      console.error('RSVP recipient email is not set (RSVP_NOTIFY_EMAIL or RESEND_FROM_EMAIL)')
       return NextResponse.json(
-        { error: 'Email service not configured (missing from email)' },
+        { error: 'Email service not configured (missing recipient email)' },
         { status: 500 }
       )
     }
@@ -55,8 +57,8 @@ export async function POST(request: Request) {
 
     // Send email to the couple
     const { data, error } = await resend.emails.send({
-      from: 'onboarding@resend.dev',
-      to: fromEmail,
+      from: senderEmail,
+      to: notifyEmail,
       replyTo: email,
       subject: `Wedding RSVP from ${name}`,
       html: `
