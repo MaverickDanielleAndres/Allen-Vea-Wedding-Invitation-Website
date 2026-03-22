@@ -17,7 +17,7 @@ const entourageGroups: Array<{ title: string; people: EntouragePerson[] }> = [
     people: [
       { name: 'Ronnel C. Bagaoisan', role: "Groom's Father" },
       { name: 'Ailene Grace A. Bagaoisan', role: "Groom's Mother" },
-      { name: 'Jovito L Mantilla', role: "Bride's Father" },
+      { name: 'Jovito L. Mantilla', role: "Bride's Father" },
       { name: 'Pablita P. Mantilla', role: "Bride's Mother" },
     ],
   },
