@@ -100,9 +100,9 @@ export default function HeroSection() {
       <div className="relative z-10 flex flex-col items-center justify-center h-full px-6 text-center">
         <p
           ref={inviteRef}
-          className="font-sans text-sm sm:text-base md:text-lg tracking-[0.35em] uppercase mb-4 text-white/80"
+          className="font-sans text-sm sm:text-base md:text-lg tracking-[0.35em] uppercase mb-8 sm:mb-10 text-white/80"
         >
-          By the grace of God and with the blessings of our families
+          We invite you to join us as we unite in love and commitment.
         </p>
 
         <h1

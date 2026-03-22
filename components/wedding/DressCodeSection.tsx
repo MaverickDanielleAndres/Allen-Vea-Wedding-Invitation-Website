@@ -43,7 +43,7 @@ export default function DressCodeSection() {
     <section ref={sectionRef} id="dresscode" className="py-20 sm:py-28 px-5 sm:px-8 bg-white">
       <div className="max-w-5xl mx-auto">
         {/* Section header */}
-        <div className="text-center mb-16 sm:mb-20 dresscode-animate">
+        <div className="text-center mb-10 sm:mb-20 dresscode-animate">
           <p className="font-sans text-xs tracking-[0.3em] uppercase text-sage mb-3">What to Wear</p>
           <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-foreground">Attire & Dress Code</h2>
           <div className="w-16 h-px bg-sage mx-auto mt-5" />

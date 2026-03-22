@@ -33,7 +33,7 @@ export default function CoupleSection() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <h3 className="font-serif text-3xl sm:text-4xl md:text-5xl text-foreground mb-2">Allen Bogaoisan</h3>
+            <h3 className="font-serif text-3xl sm:text-4xl md:text-5xl text-foreground mb-2">Allen Rovic A. Bagaoisan</h3>
             <p className="font-sans text-xs sm:text-sm tracking-[0.3em] uppercase text-sage">The Groom</p>
           </div>
 
@@ -49,7 +49,7 @@ export default function CoupleSection() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <h3 className="font-serif text-3xl sm:text-4xl md:text-5xl text-foreground mb-2">Vea Lee Mantilla</h3>
+            <h3 className="font-serif text-3xl sm:text-4xl md:text-5xl text-foreground mb-2">Vea  Lee  P.  Mantilla</h3>
             <p className="font-sans text-xs sm:text-sm tracking-[0.3em] uppercase text-sage">The Bride</p>
           </div>
         </div>

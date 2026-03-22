@@ -7,10 +7,25 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 const timeline = [
-  { time: '10:30 AM', event: 'Ceremony', detail: 'Foster Botanical Garden' },
-  { time: '11:30 AM', event: 'Transition', detail: 'Travel to reception venue' },
-  { time: '12:00 PM', event: 'Reception', detail: "Max's Restaurant" },
-  { time: 'After Reception', event: 'Afterparty' },
+  {
+    time: '10:30 AM',
+    event: 'Ceremony',
+    place: 'Foster Botanical Garden',
+    addressLines: ['180 N Vineyard Blvd', 'Honolulu, Hawaii 96817'],
+  },
+  { time: '11:30 AM', event: 'Transition', place: 'Travel to reception venue' },
+  {
+    time: '12:00 PM',
+    event: 'Reception',
+    place: "Max's Restaurant",
+    addressLines: ['801 Dillingham Blvd', 'Honolulu, Hawaii 96817'],
+  },
+  {
+    time: 'After Reception',
+    event: 'Afterparty',
+    place: 'After Party Venue',
+    addressLines: ['2008 Ahuula Street', 'Honolulu, Hawaii 96819'],
+  },
 ]
 
 export default function TimelineSection() {
@@ -106,8 +121,15 @@ export default function TimelineSection() {
                 {/* Content */}
                 <div className={`ml-12 sm:ml-0 sm:w-[45%] ${i % 2 === 0 ? 'sm:text-right sm:pr-10' : 'sm:text-left sm:pl-10'}`}>
                   <span className="font-sans text-xs tracking-[0.2em] uppercase text-gold font-medium">{item.time}</span>
-                  <h3 className="font-serif text-xl sm:text-2xl text-foreground mt-1">{item.event}</h3>
-                  {item.detail ? <p className="font-sans text-sm text-muted-foreground mt-1">{item.detail}</p> : null}
+                  <h3 className="font-serif text-2xl sm:text-3xl text-foreground mt-1">{item.event}</h3>
+                  {item.place ? <p className="font-sans text-sm text-muted-foreground mt-1">{item.place}</p> : null}
+                  {item.addressLines ? (
+                    <p className="font-sans text-sm text-muted-foreground/90 mt-0.5 leading-relaxed">
+                      {item.addressLines.map((line, lineIndex) => (
+                        <span key={`${item.time}-${lineIndex}`} className="block">{line}</span>
+                      ))}
+                    </p>
+                  ) : null}
                 </div>
 
                 {/* Spacer */}
