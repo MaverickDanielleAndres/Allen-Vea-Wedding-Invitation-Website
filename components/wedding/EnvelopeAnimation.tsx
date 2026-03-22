@@ -272,7 +272,7 @@ export default function EnvelopeAnimation({ onComplete, onMusicStart }: Envelope
   ]
 
   const sentence2Lines = [
-    { text: 'Allen Bagaoisan', className: 'font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white leading-relaxed' },
+    { text: 'Allen Rovic Bagaoisan', className: 'font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white leading-relaxed' },
     { text: 'and', className: 'font-sans text-2xl sm:text-3xl md:text-4xl text-white/60 tracking-[0.3em] uppercase leading-relaxed' },
     { text: 'Vea Lee Mantilla', className: 'font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white leading-relaxed' },
     { text: 'invites you to join us in the celebration of our marriage', className: 'font-sans text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/80 tracking-[0.12em] leading-relaxed mt-2' },
