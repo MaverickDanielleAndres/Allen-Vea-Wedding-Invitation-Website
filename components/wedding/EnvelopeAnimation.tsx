@@ -49,8 +49,8 @@ function DramaticTyping({
       }, speed)
       return () => clearTimeout(timer)
     } else {
-      // Trigger music callback when "Vea Lee Mantilla" finishes (line index 2)
-      if (lineIdx === 2 && onVeaComplete) {
+      // Trigger music callback only after the final line is fully typed
+      if (lineIdx === lines.length - 1 && onVeaComplete) {
         onVeaComplete()
       }
       
@@ -287,7 +287,7 @@ export default function EnvelopeAnimation({ onComplete, onMusicStart }: Envelope
       {/* Background image - brighter/grayish */}
       <div className="absolute inset-0">
         <img
-          src="/sampleimage.jpg"
+          src="/generalbackgroundimage.jpg"
           alt=""
           className="w-full h-full object-cover"
           style={{ filter: 'grayscale(100%) brightness(0.45) contrast(1.1)', opacity: 0.5 }}

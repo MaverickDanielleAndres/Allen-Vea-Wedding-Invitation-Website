@@ -28,7 +28,7 @@ export default function CoupleSection() {
           <div ref={groomRef} className="flex flex-col items-center text-center">
             <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 rounded-full overflow-hidden mb-6 border-4 border-sage/20 shadow-xl">
               <img
-                src="/sampleimage.jpg"
+                src="/Solo pic/groomsolopic.jpg"
                 alt="Allen Bogaoisan - The Groom"
                 className="w-full h-full object-cover"
               />
@@ -44,7 +44,7 @@ export default function CoupleSection() {
           <div ref={brideRef} className="flex flex-col items-center text-center">
             <div className="w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 rounded-full overflow-hidden mb-6 border-4 border-sage/20 shadow-xl">
               <img
-                src="/sampleimage.jpg"
+                src="/Solo pic/bridesolopic.jpg"
                 alt="Vea Lee Mantilla - The Bride"
                 className="w-full h-full object-cover"
               />

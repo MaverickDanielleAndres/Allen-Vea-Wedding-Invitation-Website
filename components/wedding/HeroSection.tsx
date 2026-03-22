@@ -75,9 +75,9 @@ export default function HeroSection() {
       {/* Background image */}
       <div className="absolute inset-0 z-0">
         <img
-          src="/sampleimage.jpg"
+          src="/generalbackgroundimage.jpg"
           alt="Allen and Vea wedding portrait"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover opacity-80"
         />
       </div>
 
@@ -102,7 +102,7 @@ export default function HeroSection() {
           ref={inviteRef}
           className="font-sans text-sm sm:text-base md:text-lg tracking-[0.35em] uppercase mb-4 text-white/80"
         >
-          You are invited to the wedding of
+          By the grace of God and with the blessings of our families
         </p>
 
         <h1
@@ -122,7 +122,7 @@ export default function HeroSection() {
         >
           <span className="block sm:inline">March 28, 2026</span>
           <span className="hidden sm:inline mx-2 text-gold">|</span>
-          <span className="block sm:inline mt-2 sm:mt-0">Hawaii <span className="mx-2 text-gold">|</span> 3:00 PM</span>
+          <span className="block sm:inline mt-2 sm:mt-0">Hawaii <span className="mx-2 text-gold">|</span> 10:30 AM</span>
         </p>
 
         {/* Scroll indicator */}

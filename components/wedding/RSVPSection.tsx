@@ -146,7 +146,7 @@ export default function RSVPSection() {
     <section ref={sectionRef} id="rsvp" className="relative py-24 sm:py-32 px-5 sm:px-8 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0">
-        <img src="/sampleimage.jpg" alt="" className="w-full h-full object-cover" aria-hidden="true" />
+        <img src="/generalbackgroundimage.jpg" alt="" className="w-full h-full object-cover" aria-hidden="true" />
         <div className="absolute inset-0 bg-foreground/80" />
       </div>
 
