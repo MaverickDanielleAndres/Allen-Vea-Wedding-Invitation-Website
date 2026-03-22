@@ -49,28 +49,25 @@ const EnvelopeAnimation = dynamic(() => import('@/components/wedding/EnvelopeAni
 const StaggeredMenu = dynamic(() => import('@/components/wedding/StaggeredMenu'), { ssr: false })
 const HeroSection = dynamic(() => import('@/components/wedding/HeroSection'), { ssr: false })
 const CoupleSection = dynamic(() => import('@/components/wedding/CoupleSection'), { ssr: false })
-const VideoSection = dynamic(() => import('@/components/wedding/VideoSection'), { ssr: false })
 const CeremonySection = dynamic(() => import('@/components/wedding/CeremonySection'), { ssr: false })
 const TimelineSection = dynamic(() => import('@/components/wedding/TimelineSection'), { ssr: false })
 const CountdownSection = dynamic(() => import('@/components/wedding/CountdownSection'), { ssr: false })
 const LoveStorySection = dynamic(() => import('@/components/wedding/LoveStorySection'), { ssr: false })
-const GallerySection = dynamic(() => import('@/components/wedding/GallerySection'), { ssr: false })
+const GallerySection = dynamic(() => import('../components/wedding/GallerySection'), { ssr: false })
 const WeddingPartySection = dynamic(() => import('@/components/wedding/WeddingPartySection'), { ssr: false })
 const DressCodeSection = dynamic(() => import('@/components/wedding/DressCodeSection'), { ssr: false })
-const GiftSection = dynamic(() => import('@/components/wedding/GiftSection'), { ssr: false })
 const FAQSection = dynamic(() => import('@/components/wedding/FAQSection'), { ssr: false })
 const RSVPSection = dynamic(() => import('@/components/wedding/RSVPSection'), { ssr: false })
 const ThankYouSection = dynamic(() => import('@/components/wedding/ThankYouSection'), { ssr: false })
 
 const menuItems = [
   { label: 'Home', ariaLabel: 'Go to hero section', link: '#home' },
-  { label: 'Our Story', ariaLabel: 'Read our love story', link: '#story' },
+  { label: 'Us Together', ariaLabel: 'Read our story', link: '#story' },
   { label: 'Ceremony', ariaLabel: 'View ceremony details', link: '#ceremony' },
   { label: 'Timeline', ariaLabel: 'View wedding timeline', link: '#timeline' },
   { label: 'Gallery', ariaLabel: 'View photo gallery', link: '#gallery' },
   { label: 'Wedding Party', ariaLabel: 'Meet the wedding party', link: '#party' },
   { label: 'Dress Code', ariaLabel: 'View dress code', link: '#dresscode' },
-  { label: 'Gift Registry', ariaLabel: 'View gift suggestions', link: '#gifts' },
   { label: 'FAQ', ariaLabel: 'Frequently asked questions', link: '#faq' },
   { label: 'RSVP', ariaLabel: 'RSVP to the wedding', link: '#rsvp' },
 ]
@@ -230,7 +227,6 @@ export default function WeddingPage() {
           <main>
             <HeroSection />
             <CoupleSection />
-            <VideoSection />
             <LoveStorySection />
             <CeremonySection />
             <TimelineSection />
@@ -238,7 +234,6 @@ export default function WeddingPage() {
             <GallerySection />
             <WeddingPartySection />
             <DressCodeSection />
-            <GiftSection />
             <FAQSection />
             <RSVPSection />
             <ThankYouSection />

@@ -6,149 +6,102 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-/*
-  20 images arranged in columns with varied sizes to fill space beautifully.
-  Single-image columns stretch vertically to fill space and avoid gaps.
-  Mix of single and stacked arrangements for dynamic visual interest.
-*/
+const createGalleryImage = (index: number, aspect: string) => ({
+  src: `/gallerypics/gellerypic (${index}).jfif`,
+  alt: `Wedding moment ${index}`,
+  aspect,
+})
+
 const galleryColumns = [
-  // Column 1 - one tall stretched
-  { images: [{ src: '/sampleimage.jpg', alt: 'Wedding moment 1', aspect: '3/5' }], width: 'w-[280px] sm:w-[360px] md:w-[420px]' },
-  // Column 2 - two stacked small
-  { images: [
-    { src: '/sampleimage.jpg', alt: 'Wedding moment 2', aspect: '1/1' },
-    { src: '/sampleimage.jpg', alt: 'Wedding moment 3', aspect: '3/4' },
-  ], width: 'w-[180px] sm:w-[220px] md:w-[260px]' },
-  // Column 3 - one tall portrait stretched
-  { images: [{ src: '/sampleimage.jpg', alt: 'Wedding moment 4', aspect: '2/5' }], width: 'w-[160px] sm:w-[200px] md:w-[240px]' },
-  // Column 4 - two stacked
-  { images: [
-    { src: '/sampleimage.jpg', alt: 'Wedding moment 5', aspect: '16/10' },
-    { src: '/sampleimage.jpg', alt: 'Wedding moment 6', aspect: '1/1' },
-  ], width: 'w-[200px] sm:w-[240px] md:w-[280px]' },
-  // Column 5 - one tall stretched
-  { images: [{ src: '/sampleimage.jpg', alt: 'Wedding moment 7', aspect: '3/4' }], width: 'w-[220px] sm:w-[280px] md:w-[320px]' },
-  // Column 6 - two stacked small
-  { images: [
-    { src: '/sampleimage.jpg', alt: 'Wedding moment 8', aspect: '3/4' },
-    { src: '/sampleimage.jpg', alt: 'Wedding moment 9', aspect: '4/3' },
-  ], width: 'w-[170px] sm:w-[210px] md:w-[250px]' },
-  // Column 7 - one very tall portrait stretched
-  { images: [{ src: '/sampleimage.jpg', alt: 'Wedding moment 10', aspect: '2/5' }], width: 'w-[180px] sm:w-[220px] md:w-[260px]' },
-  // Column 8 - two stacked
-  { images: [
-    { src: '/sampleimage.jpg', alt: 'Wedding moment 11', aspect: '1/1' },
-    { src: '/sampleimage.jpg', alt: 'Wedding moment 12', aspect: '16/9' },
-  ], width: 'w-[190px] sm:w-[230px] md:w-[270px]' },
-  // Column 9 - one tall stretched
-  { images: [{ src: '/sampleimage.jpg', alt: 'Wedding moment 13', aspect: '3/5' }], width: 'w-[260px] sm:w-[320px] md:w-[380px]' },
-  // Column 10 - two stacked small
-  { images: [
-    { src: '/sampleimage.jpg', alt: 'Wedding moment 14', aspect: '1/1' },
-    { src: '/sampleimage.jpg', alt: 'Wedding moment 15', aspect: '3/4' },
-  ], width: 'w-[170px] sm:w-[210px] md:w-[250px]' },
-  // Column 11 - one very tall portrait stretched
-  { images: [{ src: '/sampleimage.jpg', alt: 'Wedding moment 16', aspect: '2/5' }], width: 'w-[180px] sm:w-[220px] md:w-[260px]' },
-  // Column 12 - two stacked
-  { images: [
-    { src: '/sampleimage.jpg', alt: 'Wedding moment 17', aspect: '4/3' },
-    { src: '/sampleimage.jpg', alt: 'Wedding moment 18', aspect: '1/1' },
-  ], width: 'w-[200px] sm:w-[240px] md:w-[280px]' },
-  // Column 13 - one tall stretched
-  { images: [{ src: '/sampleimage.jpg', alt: 'Wedding moment 19', aspect: '3/4' }], width: 'w-[190px] sm:w-[240px] md:w-[280px]' },
-  // Column 14 - one very tall stretched
-  { images: [{ src: '/sampleimage.jpg', alt: 'Wedding moment 20', aspect: '2/5' }], width: 'w-[170px] sm:w-[210px] md:w-[250px]' },
+  { images: [createGalleryImage(1, '3/5')], width: 'w-[280px] sm:w-[360px] md:w-[420px]' },
+  { images: [createGalleryImage(2, '1/1'), createGalleryImage(3, '3/4')], width: 'w-[180px] sm:w-[220px] md:w-[260px]' },
+  { images: [createGalleryImage(4, '2/5')], width: 'w-[160px] sm:w-[200px] md:w-[240px]' },
+  { images: [createGalleryImage(5, '16/10'), createGalleryImage(6, '1/1')], width: 'w-[200px] sm:w-[240px] md:w-[280px]' },
+  { images: [createGalleryImage(7, '3/4')], width: 'w-[220px] sm:w-[280px] md:w-[320px]' },
+  { images: [createGalleryImage(8, '3/4'), createGalleryImage(9, '4/3')], width: 'w-[170px] sm:w-[210px] md:w-[250px]' },
+  { images: [createGalleryImage(10, '2/5')], width: 'w-[180px] sm:w-[220px] md:w-[260px]' },
+  { images: [createGalleryImage(11, '1/1'), createGalleryImage(12, '16/9')], width: 'w-[190px] sm:w-[230px] md:w-[270px]' },
+  { images: [createGalleryImage(13, '3/5')], width: 'w-[260px] sm:w-[320px] md:w-[380px]' },
+  { images: [createGalleryImage(14, '1/1'), createGalleryImage(15, '3/4')], width: 'w-[170px] sm:w-[210px] md:w-[250px]' },
+  { images: [createGalleryImage(16, '2/5')], width: 'w-[180px] sm:w-[220px] md:w-[260px]' },
+  { images: [createGalleryImage(17, '4/3'), createGalleryImage(18, '1/1')], width: 'w-[200px] sm:w-[240px] md:w-[280px]' },
+  { images: [createGalleryImage(19, '3/4')], width: 'w-[190px] sm:w-[240px] md:w-[280px]' },
+  { images: [createGalleryImage(20, '2/5')], width: 'w-[170px] sm:w-[210px] md:w-[250px]' },
+  { images: [createGalleryImage(21, '16/10'), createGalleryImage(22, '1/1')], width: 'w-[200px] sm:w-[240px] md:w-[280px]' },
+  { images: [createGalleryImage(23, '3/4')], width: 'w-[220px] sm:w-[280px] md:w-[320px]' },
+  { images: [createGalleryImage(24, '1/1'), createGalleryImage(25, '16/9')], width: 'w-[190px] sm:w-[230px] md:w-[270px]' },
+  { images: [createGalleryImage(26, '3/5'), createGalleryImage(27, '4/3')], width: 'w-[220px] sm:w-[280px] md:w-[320px]' },
 ]
 
 // Flatten all images for modal navigation
 const allImages = galleryColumns.flatMap((col) => col.images)
-// Loop the columns
-const loopedColumns = [...galleryColumns, ...galleryColumns]
+const duplicatedGalleryColumns = [...galleryColumns, ...galleryColumns]
+
+const columnStartIndex = galleryColumns.reduce<number[]>((acc, _col, index) => {
+  if (index === 0) {
+    acc.push(0)
+  } else {
+    acc.push(acc[index - 1] + galleryColumns[index - 1].images.length)
+  }
+  return acc
+}, [])
 
 export default function GallerySection() {
   const sectionRef = useRef<HTMLElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const [modalOpen, setModalOpen] = useState(false)
   const [modalIndex, setModalIndex] = useState(0)
+  const isDraggingRef = useRef(false)
+  const dragStartXRef = useRef(0)
+  const startScrollLeftRef = useRef(0)
+  const movedDuringDragRef = useRef(false)
+  const interactionPauseUntilRef = useRef(0)
 
   const modalTouchStart = useRef(0)
 
-  // Infinite scroll loop with GSAP auto-scroll
-  useEffect(() => {
+  const pauseAutoplayFor = useCallback((ms: number) => {
+    interactionPauseUntilRef.current = Date.now() + ms
+  }, [])
+
+  const handleManualScroll = useCallback((amount: number) => {
     const container = scrollContainerRef.current
     if (!container) return
+    pauseAutoplayFor(2200)
+    container.scrollBy({ left: amount, behavior: 'smooth' })
+  }, [pauseAutoplayFor])
 
-    const handleScroll = () => {
-      const scrollLeft = container.scrollLeft
-      const maxScroll = container.scrollWidth / 2
+  const onDragStart = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.button !== 0) return
+    const container = scrollContainerRef.current
+    if (!container) return
+    isDraggingRef.current = true
+    movedDuringDragRef.current = false
+    dragStartXRef.current = e.clientX
+    startScrollLeftRef.current = container.scrollLeft
+    container.style.cursor = 'grabbing'
+    container.style.userSelect = 'none'
+    pauseAutoplayFor(2500)
+  }, [pauseAutoplayFor])
 
-      if (scrollLeft >= maxScroll - 100) {
-        container.scrollLeft = scrollLeft - maxScroll
-      } else if (scrollLeft <= 100) {
-        container.scrollLeft = scrollLeft + maxScroll
-      }
-    }
-
-    container.addEventListener('scroll', handleScroll)
-    // Set initial position to middle
-    container.scrollLeft = container.scrollWidth / 4
-
-    // GSAP auto-scroll animation - smooth continuous scroll
-    let scrollTween: gsap.core.Tween
-    let isPaused = false
-    
-    const startAutoScroll = () => {
-      if (!container) return
-      const scrollWidth = container.scrollWidth / 2
-      const currentScroll = container.scrollLeft
-      const remaining = scrollWidth - currentScroll
-      const duration = remaining / 30 // 30 pixels per second
-      
-      scrollTween = gsap.to(container, {
-        scrollLeft: scrollWidth,
-        duration: duration,
-        ease: 'none',
-        onComplete: () => {
-          container.scrollLeft = 0
-          if (!isPaused) startAutoScroll()
-        }
-      })
-    }
-
-    // Pause on hover/touch
-    const pauseScroll = () => {
-      isPaused = true
-      if (scrollTween) scrollTween.pause()
-    }
-    
-    const resumeScroll = () => {
-      isPaused = false
-      if (scrollTween) {
-        scrollTween.kill()
-      }
-      startAutoScroll()
-    }
-
-    container.addEventListener('mouseenter', pauseScroll)
-    container.addEventListener('mouseleave', resumeScroll)
-    container.addEventListener('touchstart', pauseScroll)
-    container.addEventListener('touchend', resumeScroll)
-
-    // Start after brief delay
-    const timeoutId = setTimeout(() => {
-      startAutoScroll()
-    }, 1000)
-
-    return () => {
-      container.removeEventListener('scroll', handleScroll)
-      container.removeEventListener('mouseenter', pauseScroll)
-      container.removeEventListener('mouseleave', resumeScroll)
-      container.removeEventListener('touchstart', pauseScroll)
-      container.removeEventListener('touchend', resumeScroll)
-      clearTimeout(timeoutId)
-      if (scrollTween) scrollTween.kill()
-    }
+  const onDragMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const container = scrollContainerRef.current
+    if (!container || !isDraggingRef.current) return
+    const delta = e.clientX - dragStartXRef.current
+    if (Math.abs(delta) > 4) movedDuringDragRef.current = true
+    container.scrollLeft = startScrollLeftRef.current - delta
   }, [])
+
+  const onDragEnd = useCallback(() => {
+    const container = scrollContainerRef.current
+    if (!container || !isDraggingRef.current) return
+    isDraggingRef.current = false
+    container.style.cursor = 'grab'
+    container.style.removeProperty('user-select')
+    window.setTimeout(() => {
+      movedDuringDragRef.current = false
+    }, 0)
+    pauseAutoplayFor(1500)
+  }, [pauseAutoplayFor])
 
   // GSAP entrance
   useEffect(() => {
@@ -172,6 +125,46 @@ export default function GallerySection() {
     }, sectionRef)
     return () => ctx.revert()
   }, [])
+
+  // Auto-scroll loop (seamless with duplicated columns)
+  useEffect(() => {
+    const container = scrollContainerRef.current
+    if (!container) return
+
+    let rafId = 0
+    let lastTimestamp = performance.now()
+
+    const tick = (timestamp: number) => {
+      const currentContainer = scrollContainerRef.current
+      if (!currentContainer) return
+
+      const delta = timestamp - lastTimestamp
+      lastTimestamp = timestamp
+
+      const shouldPause =
+        isDraggingRef.current ||
+        modalOpen ||
+        Date.now() < interactionPauseUntilRef.current
+
+      if (!shouldPause) {
+        const halfWidth = currentContainer.scrollWidth / 2
+        const autoSpeedPxPerMs = 0.03
+        currentContainer.scrollLeft += delta * autoSpeedPxPerMs
+
+        if (currentContainer.scrollLeft >= halfWidth) {
+          currentContainer.scrollLeft -= halfWidth
+        }
+      }
+
+      rafId = window.requestAnimationFrame(tick)
+    }
+
+    rafId = window.requestAnimationFrame(tick)
+
+    return () => {
+      window.cancelAnimationFrame(rafId)
+    }
+  }, [modalOpen])
 
   // Modal logic
   const openModal = useCallback((flatIndex: number) => {
@@ -205,9 +198,6 @@ export default function GallerySection() {
     return () => window.removeEventListener('keydown', handleKey)
   }, [modalOpen, closeModal, nextImage, prevImage])
 
-  // Track flat image index across columns
-  let flatIdx = 0
-
   return (
     <section ref={sectionRef} id="gallery" className="py-16 sm:py-24 bg-stone-50 overflow-hidden select-none">
       {/* Header */}
@@ -224,12 +214,29 @@ export default function GallerySection() {
           WebkitOverflowScrolling: 'touch',
           scrollbarWidth: 'none',
           msOverflowStyle: 'none',
+          cursor: 'grab',
+          touchAction: 'pan-x',
         }}
+        onMouseDown={onDragStart}
+        onMouseMove={onDragMove}
+        onMouseUp={onDragEnd}
+        onMouseLeave={onDragEnd}
+        onMouseEnter={() => pauseAutoplayFor(800)}
+        onWheel={() => pauseAutoplayFor(1200)}
+        onTouchStart={() => pauseAutoplayFor(1800)}
+        onTouchMove={() => pauseAutoplayFor(1800)}
+        onTouchEnd={() => pauseAutoplayFor(1200)}
       >
-        <div className="flex gap-3 sm:gap-4 px-4 sm:px-8 w-max items-start">
-          {loopedColumns.map((col, colIdx) => {
-            const colStartIdx = flatIdx
-
+        <div
+          className="flex gap-3 sm:gap-4 px-4 sm:px-8 w-max items-start"
+          onClickCapture={(e) => {
+            if (movedDuringDragRef.current) {
+              e.preventDefault()
+              e.stopPropagation()
+            }
+          }}
+        >
+          {duplicatedGalleryColumns.map((col, colIdx) => {
             const colContent = (
               <div
                 key={colIdx}
@@ -237,8 +244,8 @@ export default function GallerySection() {
                 style={{ marginTop: colIdx % 3 === 1 ? '24px' : colIdx % 5 === 3 ? '40px' : '0px' }}
               >
                 {col.images.map((img, imgIdx) => {
-                  const currentFlatIdx = flatIdx
-                  flatIdx++
+                  const originalColIdx = colIdx % galleryColumns.length
+                  const currentFlatIdx = (columnStartIndex[originalColIdx] + imgIdx) % allImages.length
 
                   return (
                     <button
@@ -269,11 +276,8 @@ export default function GallerySection() {
       {/* Navigation arrows (desktop only) */}
       <div className="hidden md:flex justify-center gap-4 mt-6">
         <button
-          onClick={() => {
-            if (scrollContainerRef.current) {
-              scrollContainerRef.current.scrollBy({ left: -500, behavior: 'smooth' })
-            }
-          }}
+          type="button"
+          onClick={() => handleManualScroll(-500)}
           className="w-10 h-10 rounded-full border border-stone-300 flex items-center justify-center text-stone-500 hover:text-stone-800 hover:border-stone-500 transition-colors"
           aria-label="Scroll left"
         >
@@ -282,11 +286,8 @@ export default function GallerySection() {
           </svg>
         </button>
         <button
-          onClick={() => {
-            if (scrollContainerRef.current) {
-              scrollContainerRef.current.scrollBy({ left: 500, behavior: 'smooth' })
-            }
-          }}
+          type="button"
+          onClick={() => handleManualScroll(500)}
           className="w-10 h-10 rounded-full border border-stone-300 flex items-center justify-center text-stone-500 hover:text-stone-800 hover:border-stone-500 transition-colors"
           aria-label="Scroll right"
         >

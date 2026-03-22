@@ -6,17 +6,17 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const WEDDING_DATE = new Date('2026-03-28T15:00:00-10:00')
+const WEDDING_DAY_START = new Date('2026-03-28T10:00:00-10:00')
 
 function calcCountdown() {
   const now = new Date()
-  const diff = WEDDING_DATE.getTime() - now.getTime()
-  if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 }
+  const diff = WEDDING_DAY_START.getTime() - now.getTime()
+  if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0, isWeddingDay: true }
   const days = Math.floor(diff / (1000 * 60 * 60 * 24))
   const hours = Math.floor((diff / (1000 * 60 * 60)) % 24)
   const minutes = Math.floor((diff / (1000 * 60)) % 60)
   const seconds = Math.floor((diff / 1000) % 60)
-  return { days, hours, minutes, seconds }
+  return { days, hours, minutes, seconds, isWeddingDay: false }
 }
 
 /* ── Rolling digit component ── */
@@ -138,31 +138,35 @@ export default function CountdownSection() {
     <section ref={sectionRef} id="countdown" className="relative py-24 sm:py-32 px-5 sm:px-8 overflow-hidden">
       {/* Background image */}
       <div className="absolute inset-0">
-        <img src="/sampleimage.jpg" alt="" className="w-full h-full object-cover" aria-hidden="true" />
+        <img src="/generalbackgroundimage.jpg" alt="" className="w-full h-full object-cover" aria-hidden="true" />
         <div className="absolute inset-0 bg-foreground/70" />
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto text-center">
         <p className="countdown-title font-sans text-xs tracking-[0.3em] uppercase text-primary-foreground/60 mb-3">Save the Date</p>
         <h2 className="countdown-title font-serif text-4xl sm:text-5xl md:text-6xl text-primary-foreground mb-4">Counting Down</h2>
-        <p className="countdown-title font-sans text-sm text-primary-foreground/60 mb-12">to March 28, 2026 at 3:00 PM HST</p>
+        <p className="countdown-title font-sans text-sm text-primary-foreground/60 mb-12">to March 28, 2026 at 10:00 AM (Honolulu, Hawaii)</p>
 
-        <div className="flex justify-center gap-4 sm:gap-8">
-          {units.map((u, i) => (
-            <div key={u.label} className="countdown-unit flex flex-col items-center">
-              <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-sm border border-primary-foreground/20 bg-primary-foreground/5 backdrop-blur-sm flex items-center justify-center mb-3">
-                <span className="font-sans text-2xl sm:text-4xl font-light text-primary-foreground">
-                  {visible ? (
-                    <RollingNumber value={u.value} unitDelay={i * 2} />
-                  ) : (
-                    <span className="tabular-nums opacity-0">00</span>
-                  )}
-                </span>
+        {countdown.isWeddingDay ? (
+          <p className="font-serif text-3xl sm:text-4xl md:text-5xl text-primary-foreground">It's wedding day!</p>
+        ) : (
+          <div className="flex justify-center gap-4 sm:gap-8">
+            {units.map((u, i) => (
+              <div key={u.label} className="countdown-unit flex flex-col items-center">
+                <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-sm border border-primary-foreground/20 bg-primary-foreground/5 backdrop-blur-sm flex items-center justify-center mb-3">
+                  <span className="font-sans text-2xl sm:text-4xl font-light text-primary-foreground">
+                    {visible ? (
+                      <RollingNumber value={u.value} unitDelay={i * 2} />
+                    ) : (
+                      <span className="tabular-nums opacity-0">00</span>
+                    )}
+                  </span>
+                </div>
+                <span className="font-sans text-[10px] sm:text-xs tracking-[0.2em] uppercase text-primary-foreground/50">{u.label}</span>
               </div>
-              <span className="font-sans text-[10px] sm:text-xs tracking-[0.2em] uppercase text-primary-foreground/50">{u.label}</span>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   )

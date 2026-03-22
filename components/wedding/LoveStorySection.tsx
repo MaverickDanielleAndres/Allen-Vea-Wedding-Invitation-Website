@@ -9,33 +9,27 @@ gsap.registerPlugin(ScrollTrigger)
 const stories = [
   {
     quote: '"The moment I saw you, I knew an adventure was going to happen."',
-    date: 'June 2019',
-    attribution: '— The Day We Met',
-    image: '/sampleimage.jpg',
+    image: '/Ustogethersectionpic/pic1.jpg',
   },
   {
     quote: '"Every love story is beautiful, but ours is my favorite."',
-    date: 'December 2019',
-    attribution: '— Our First Date',
-    image: '/sampleimage.jpg',
+    image: '/Ustogethersectionpic/pic2.jpg',
   },
   {
     quote: '"In all the world, there is no heart for me like yours."',
-    date: 'February 2021',
-    attribution: '— When I Knew',
-    image: '/sampleimage.jpg',
+    image: '/Ustogethersectionpic/pic3.jpg',
   },
   {
     quote: '"I choose you. And I\'ll choose you over and over, without pause, without doubt."',
-    date: 'August 2024',
-    attribution: '— The Proposal',
-    image: '/sampleimage.jpg',
+    image: '/Ustogethersectionpic/pic4.jpg',
   },
   {
     quote: '"Two souls with but a single thought, two hearts that beat as one."',
-    date: 'March 2026',
-    attribution: '— Forever Begins',
-    image: '/sampleimage.jpg',
+    image: '/Ustogethersectionpic/pic5.jpg',
+  },
+  {
+    quote: '"Wherever life takes us, hand in hand is our favorite place to be."',
+    image: '/Ustogethersectionpic/pic6.jpg',
   },
 ]
 
@@ -125,7 +119,7 @@ export default function LoveStorySection() {
 
       {/* Header */}
       <div className="love-story-title text-center mb-10 sm:mb-14 relative z-10">
-        <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-foreground mb-2">Our Love Story</h2>
+        <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-foreground mb-2">Us Together</h2>
       </div>
 
       {/* Carousel viewport */}
@@ -184,7 +178,7 @@ export default function LoveStorySection() {
                   {/* Image */}
                   <img
                     src={story.image}
-                    alt={`Love story - ${story.date}`}
+                    alt={`Us together memory ${index + 1}`}
                     className="w-full h-full object-cover"
                     draggable={false}
                   />
@@ -194,17 +188,9 @@ export default function LoveStorySection() {
 
                   {/* Quote overlay on each card */}
                   <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-7">
-                    <p className="font-sans text-[10px] sm:text-xs text-white/50 tracking-[0.2em] uppercase mb-2">
-                      {story.date}
-                    </p>
                     <p className="font-sans text-xs sm:text-sm text-white/90 leading-relaxed italic">
                       {story.quote}
                     </p>
-                    {story.attribution && (
-                      <p className="font-sans text-[10px] sm:text-xs text-white/60 mt-2">
-                        {story.attribution}
-                      </p>
-                    )}
                   </div>
                 </div>
               </div>
@@ -217,9 +203,6 @@ export default function LoveStorySection() {
       <div ref={descRef} className="text-center mt-8 sm:mt-12 px-6 relative z-10 max-w-2xl mx-auto">
         <p className="font-sans text-xs sm:text-sm text-foreground/70 leading-relaxed italic">
           {activeStory.quote}
-        </p>
-        <p className="font-sans text-[10px] sm:text-xs text-muted-foreground/60 mt-2 tracking-[0.2em] uppercase">
-          {activeStory.date} {activeStory.attribution}
         </p>
       </div>
 

@@ -7,12 +7,14 @@ const greatVibes = Great_Vibes({
   subsets: ['latin'],
   variable: '--font-great-vibes',
   display: 'swap',
+  preload: false,
 })
 
 const raleway = Raleway({
   subsets: ['latin'],
   variable: '--font-futura',
   display: 'swap',
+  preload: false,
 })
 
 export const metadata: Metadata = {

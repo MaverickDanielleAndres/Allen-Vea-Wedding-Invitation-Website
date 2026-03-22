@@ -6,94 +6,94 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-interface PartyMember {
+type EntouragePerson = {
   name: string
   role: string
-  image: string
 }
 
-const bridesmaids: PartyMember[] = [
-  { name: 'Maria Santos', role: 'Maid of Honor', image: '/sampleimage.jpg' },
-  { name: 'Isabella Cruz', role: 'Bridesmaid', image: '/sampleimage.jpg' },
-  { name: 'Sofia Reyes', role: 'Bridesmaid', image: '/sampleimage.jpg' },
-  { name: 'Ana Garcia', role: 'Bridesmaid', image: '/sampleimage.jpg' },
+const entourageGroups: Array<{ title: string; people: EntouragePerson[] }> = [
+  {
+    title: 'Our Parents',
+    people: [
+      { name: 'Ronnel C. Bagaoisan', role: "Groom's Father" },
+      { name: 'Ailene Grace A. Bagaoisan', role: "Groom's Mother" },
+      { name: 'Jovito L Mantilla', role: "Bride's Father" },
+      { name: 'Pablita P. Mantilla', role: "Bride's Mother" },
+    ],
+  },
+  {
+    title: "Bestman and Grooms Man",
+    people: [
+      { name: 'Aaron Ralph A Bagaoisan', role: 'Best Man' },
+      { name: 'Brinden Peek', role: "Groom's Man" },
+      { name: 'Reymund M. Palatan', role: "Groom's Man" },
+      { name: 'John ronnie Domingo', role: "Groom's Man" },
+      { name: 'Brndo C. Orpila', role: "Groom's Man" },
+    ],
+  },
+  {
+    title: 'Brides Maid',
+    people: [
+      { name: 'Airo Peek', role: "Bride's Maid" },
+      { name: 'Gabriella Forbes', role: "Bride's Maid" },
+    ],
+  },
+  {
+    title: 'Ninong and Ninang',
+    people: [
+      { name: 'Remy Palatan', role: 'Ninong' },
+      { name: 'Lina Palatan', role: 'Ninang' },
+      { name: 'Anacleto Bagaoisan', role: 'Ninong' },
+      { name: 'Lanie Bagaoisan', role: 'Ninang' },
+      { name: 'Nestor Pabilona', role: 'Ninong' },
+      { name: 'Ruvelin Pabilona', role: 'Ninang' },
+      { name: 'Jacqueline A. Luz', role: 'Ninang' },
+    ],
+  },
+  {
+    title: 'Grandparents',
+    people: [
+      { name: 'Virginia Aribuabo', role: "Groom's Grand Parent" },
+      { name: 'Virginia Vargo', role: "Groom's Grand Parent" },
+      { name: 'Joe Vargo', role: "Groom's Grand Parent" },
+    ],
+  },
+  {
+    title: 'Guest',
+    people: [{ name: 'Charlesa Caraang', role: 'Guest' }],
+  },
 ]
-
-const groomsmen: PartyMember[] = [
-  { name: 'Miguel Torres', role: 'Best Man', image: '/sampleimage.jpg' },
-  { name: 'Rafael Lim', role: 'Groomsman', image: '/sampleimage.jpg' },
-  { name: 'Carlos Rivera', role: 'Groomsman', image: '/sampleimage.jpg' },
-  { name: 'David Aquino', role: 'Groomsman', image: '/sampleimage.jpg' },
-]
-
-const parents: PartyMember[] = [
-  { name: 'Roberto Bogaoisan', role: 'Father of the Groom', image: '/sampleimage.jpg' },
-  { name: 'Elena Bogaoisan', role: 'Mother of the Groom', image: '/sampleimage.jpg' },
-  { name: 'Ricardo Mantilla', role: 'Father of the Bride', image: '/sampleimage.jpg' },
-  { name: 'Carmen Mantilla', role: 'Mother of the Bride', image: '/sampleimage.jpg' },
-]
-
-const ninong: PartyMember[] = [
-  { name: 'Antonio Del Rosario', role: 'Ninong', image: '/sampleimage.jpg' },
-  { name: 'Fernando Villanueva', role: 'Ninong', image: '/sampleimage.jpg' },
-  { name: 'Eduardo Santos', role: 'Ninong', image: '/sampleimage.jpg' },
-  { name: 'Rodrigo Martinez', role: 'Ninong', image: '/sampleimage.jpg' },
-  { name: 'Vicente Lopez', role: 'Ninong', image: '/sampleimage.jpg' },
-  { name: 'Alejandro Ramos', role: 'Ninong', image: '/sampleimage.jpg' },
-]
-
-const ninang: PartyMember[] = [
-  { name: 'Lucia Fernandez', role: 'Ninang', image: '/sampleimage.jpg' },
-  { name: 'Teresa Gonzales', role: 'Ninang', image: '/sampleimage.jpg' },
-  { name: 'Rosa Morales', role: 'Ninang', image: '/sampleimage.jpg' },
-  { name: 'Beatriz Santiago', role: 'Ninang', image: '/sampleimage.jpg' },
-  { name: 'Gloria Castillo', role: 'Ninang', image: '/sampleimage.jpg' },
-  { name: 'Mercedes Flores', role: 'Ninang', image: '/sampleimage.jpg' },
-]
-
-function PersonCard({ member, index }: { member: PartyMember; index: number }) {
-  const cardRef = useRef<HTMLDivElement>(null)
-
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        cardRef.current,
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.7,
-          ease: 'power3.out',
-          delay: index * 0.1,
-          scrollTrigger: {
-            trigger: cardRef.current,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
-          },
-        }
-      )
-    })
-    return () => ctx.revert()
-  }, [index])
-
-  return (
-    <div ref={cardRef} className="flex flex-col items-center text-center">
-      <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden mb-4 border-2 border-sage/20">
-        <img
-          src={member.image}
-          alt={member.name}
-          className="w-full h-full object-cover"
-          loading="lazy"
-        />
-      </div>
-      <h3 className="font-serif text-xl sm:text-2xl text-foreground">{member.name}</h3>
-      <p className="font-sans text-xs tracking-[0.15em] uppercase text-sage mt-1">{member.role}</p>
-    </div>
-  )
-}
 
 export default function WeddingPartySection() {
   const sectionRef = useRef<HTMLElement>(null)
+
+  const nameClass = 'font-serif text-3xl sm:text-4xl text-foreground text-center leading-tight'
+  const roleClass = 'font-sans text-sm sm:text-base tracking-[0.2em] uppercase text-sage mt-1'
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.utils.toArray<HTMLElement>('.party-group').forEach((group, i) => {
+        gsap.fromTo(
+          group,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: 'power3.out',
+            delay: i * 0.08,
+            scrollTrigger: {
+              trigger: group,
+              start: 'top 85%',
+              toggleActions: 'play none none reverse',
+            },
+          }
+        )
+      })
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
 
   return (
     <section ref={sectionRef} id="party" className="py-20 sm:py-28 px-5 sm:px-8 bg-background">
@@ -105,54 +105,90 @@ export default function WeddingPartySection() {
           <div className="w-16 h-px bg-sage mx-auto mt-5" />
         </div>
 
-        {/* Bridesmaids */}
-        <div className="mb-16">
-          <h3 className="font-sans text-xs tracking-[0.3em] uppercase text-gold text-center mb-10">Bridesmaids</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10">
-            {bridesmaids.map((m, i) => (
-              <PersonCard key={m.name} member={m} index={i} />
-            ))}
-          </div>
-        </div>
-
-        {/* Groomsmen */}
-        <div className="mb-16">
-          <h3 className="font-sans text-xs tracking-[0.3em] uppercase text-gold text-center mb-10">Groomsmen</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10">
-            {groomsmen.map((m, i) => (
-              <PersonCard key={m.name} member={m} index={i} />
-            ))}
-          </div>
-        </div>
-
-        {/* Parents */}
-        <div className="mb-16">
-          <h3 className="font-sans text-xs tracking-[0.3em] uppercase text-gold text-center mb-10">Our Beloved Parents</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10">
-            {parents.map((m, i) => (
-              <PersonCard key={m.name} member={m} index={i} />
-            ))}
-          </div>
-        </div>
-
-        {/* Ninong */}
-        <div className="mb-16">
-          <h3 className="font-sans text-xs tracking-[0.3em] uppercase text-gold text-center mb-10">Ninong</h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 sm:gap-10">
-            {ninong.map((m, i) => (
-              <PersonCard key={m.name} member={m} index={i} />
-            ))}
-          </div>
-        </div>
-
-        {/* Ninang */}
         <div>
-          <h3 className="font-sans text-xs tracking-[0.3em] uppercase text-gold text-center mb-10">Ninang</h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 sm:gap-10">
-            {ninang.map((m, i) => (
-              <PersonCard key={m.name} member={m} index={i} />
-            ))}
-          </div>
+          {entourageGroups.map((group, groupIndex) => (
+            <div key={group.title} className={`party-group ${groupIndex < entourageGroups.length - 1 ? 'mb-14 sm:mb-16' : ''}`}>
+              <h3 className="font-sans text-xs tracking-[0.3em] uppercase text-gold text-center mb-8">{group.title}</h3>
+
+              {group.title === 'Our Parents' && (
+                <div className="space-y-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+                    {group.people.slice(0, 2).map((person) => (
+                      <div key={person.name} className="text-center">
+                        <p className={nameClass}>{person.name}</p>
+                        <p className={roleClass}>{person.role}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+                    {group.people.slice(2, 4).map((person) => (
+                      <div key={person.name} className="text-center">
+                        <p className={nameClass}>{person.name}</p>
+                        <p className={roleClass}>{person.role}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {group.title === 'Bestman and Grooms Man' && (
+                <div className="space-y-6">
+                  <div className="max-w-xl mx-auto text-center">
+                    <p className={nameClass}>{group.people[0].name}</p>
+                    <p className={roleClass}>{group.people[0].role}</p>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 max-w-4xl mx-auto">
+                    {group.people.slice(1).map((person) => (
+                      <div key={person.name} className="text-center">
+                        <p className={nameClass}>{person.name}</p>
+                        <p className={roleClass}>{person.role}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {group.title === 'Brides Maid' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 max-w-4xl mx-auto">
+                  {group.people.map((person) => (
+                    <div key={person.name} className="text-center">
+                      <p className={nameClass}>{person.name}</p>
+                      <p className={roleClass}>{person.role}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {group.title === 'Ninong and Ninang' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 max-w-4xl mx-auto">
+                  {group.people.map((person, index) => {
+                    const isLastOdd = group.people.length % 2 === 1 && index === group.people.length - 1
+
+                    return (
+                      <div key={person.name} className={`text-center ${isLastOdd ? 'md:col-span-2 md:max-w-md md:mx-auto' : ''}`}>
+                        <p className={nameClass}>{person.name}</p>
+                        <p className={roleClass}>{person.role}</p>
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
+
+              {group.title !== 'Our Parents' &&
+                group.title !== 'Bestman and Grooms Man' &&
+                group.title !== 'Brides Maid' &&
+                group.title !== 'Ninong and Ninang' && (
+                  <div className={`grid gap-4 sm:gap-5 ${group.people.length === 3 ? 'grid-cols-1 md:grid-cols-3' : 'grid-cols-1'}`}>
+                    {group.people.map((person) => (
+                      <div key={person.name} className="text-center">
+                        <p className={nameClass}>{person.name}</p>
+                        <p className={roleClass}>{person.role}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+            </div>
+          ))}
         </div>
       </div>
     </section>

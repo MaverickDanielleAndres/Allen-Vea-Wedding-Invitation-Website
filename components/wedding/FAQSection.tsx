@@ -8,36 +8,48 @@ gsap.registerPlugin(ScrollTrigger)
 
 const faqs = [
   {
+    q: 'What time is the wedding?',
+    a: 'The ceremony will begin at 10:30 AM, so please arrive early to be seated on time.',
+  },
+  {
+    q: 'Where will the ceremony take place?',
+    a: 'The ceremony will be held at Foster Botanical Garden in Honolulu.',
+  },
+  {
+    q: 'Where is the reception?',
+    a: 'The reception will be at Max\'s Restaurant in Honolulu, starting at 12:00 PM.',
+  },
+  {
+    q: 'What should I bring?',
+    a: 'Just bring your best self and come ready to celebrate with us.',
+  },
+  {
     q: 'What is the dress code?',
-    a: 'Semi-formal to formal attire in our wedding color palette: sage green, gold, champagne, ivory, or olive. Please avoid wearing white.',
+    a: 'Guests are encouraged to follow the wedding color palette: Sage Green, Beige, and Champagne.',
   },
   {
     q: 'Can I bring a plus one?',
-    a: 'We kindly ask that only those named on the invitation attend. If you received a plus one, it will be noted on your RSVP.',
+    a: 'No plus one is allowed, as the event is strictly by invitation.',
   },
   {
-    q: 'Will there be parking available?',
-    a: 'Yes, complimentary valet parking will be available at both the ceremony and reception venues.',
-  },
-  {
-    q: 'Is there transportation between the ceremony and reception?',
-    a: 'Yes, shuttle buses will be provided from Haiku Gardens to The Willows Honolulu. They will depart at 4:45 PM and 5:15 PM.',
-  },
-  {
-    q: 'Are children welcome?',
-    a: 'While we love your little ones, our wedding will be an adults-only celebration. We hope you understand.',
-  },
-  {
-    q: 'What should I do if I have dietary restrictions?',
-    a: 'Please note any dietary restrictions on your RSVP card, and we will ensure accommodations are made for you.',
-  },
-  {
-    q: 'When should I RSVP by?',
-    a: 'Please RSVP by February 28, 2026 to help us finalize the arrangements.',
+    q: 'Is parking available?',
+    a: 'Yes, parking will be available at the venue.',
   },
   {
     q: 'Will the ceremony be outdoors?',
-    a: 'Yes, the ceremony will be held in the beautiful outdoor gardens of Haiku Gardens. In the unlikely event of rain, a covered backup area is available.',
+    a: 'Yes, the ceremony will take place outdoors.',
+  },
+  {
+    q: 'Is the reception indoors?',
+    a: 'Yes, the reception venue is indoors.',
+  },
+  {
+    q: 'Are children allowed?',
+    a: 'This is an adult-only event, so strictly no children are allowed.',
+  },
+  {
+    q: 'Is there transportation between the ceremony and reception?',
+    a: 'Guests will need to arrange their own transportation. Using your own car is recommended.',
   },
 ]
 

@@ -49,8 +49,8 @@ function DramaticTyping({
       }, speed)
       return () => clearTimeout(timer)
     } else {
-      // Trigger music callback when "Vea Lee Mantilla" finishes (line index 2)
-      if (lineIdx === 2 && onVeaComplete) {
+      // Trigger music callback only after the final line is fully typed
+      if (lineIdx === lines.length - 1 && onVeaComplete) {
         onVeaComplete()
       }
       
@@ -272,7 +272,7 @@ export default function EnvelopeAnimation({ onComplete, onMusicStart }: Envelope
   ]
 
   const sentence2Lines = [
-    { text: 'Allen Bagaoisan', className: 'font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white leading-relaxed' },
+    { text: 'Allen Rovic Bagaoisan', className: 'font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white leading-relaxed' },
     { text: 'and', className: 'font-sans text-2xl sm:text-3xl md:text-4xl text-white/60 tracking-[0.3em] uppercase leading-relaxed' },
     { text: 'Vea Lee Mantilla', className: 'font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white leading-relaxed' },
     { text: 'invites you to join us in the celebration of our marriage', className: 'font-sans text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/80 tracking-[0.12em] leading-relaxed mt-2' },
@@ -287,7 +287,7 @@ export default function EnvelopeAnimation({ onComplete, onMusicStart }: Envelope
       {/* Background image - brighter/grayish */}
       <div className="absolute inset-0">
         <img
-          src="/sampleimage.jpg"
+          src="/generalbackgroundimage.jpg"
           alt=""
           className="w-full h-full object-cover"
           style={{ filter: 'grayscale(100%) brightness(0.45) contrast(1.1)', opacity: 0.5 }}

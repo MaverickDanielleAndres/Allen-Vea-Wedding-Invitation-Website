@@ -8,10 +8,8 @@ gsap.registerPlugin(ScrollTrigger)
 
 const colorPalette = [
   { name: 'Sage Green', hex: '#8fac8f' },
-  { name: 'Gold', hex: '#c9a84c' },
-  { name: 'Ivory', hex: '#f5f0e8' },
+  { name: 'Beige', hex: '#d7c3a3' },
   { name: 'Champagne', hex: '#dbc9a8' },
-  { name: 'Olive', hex: '#6b7c5e' },
 ]
 
 export default function DressCodeSection() {
@@ -50,15 +48,26 @@ export default function DressCodeSection() {
           <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-foreground">Attire & Dress Code</h2>
           <div className="w-16 h-px bg-sage mx-auto mt-5" />
           <p className="font-sans text-sm text-muted-foreground mt-6 max-w-lg mx-auto leading-relaxed">
-            We kindly request our guests to wear semi-formal to formal attire in our wedding color palette. Please avoid wearing white, as it is reserved for the bride.
+            We kindly request our guests to wear semi-formal to formal attire and follow our wedding color palette.
           </p>
+        </div>
+
+        <div className="dresscode-animate mb-14 sm:mb-16">
+          <div className="aspect-[16/10] overflow-hidden rounded-sm max-w-3xl mx-auto">
+            <img
+              src="/Dresscode/dresscodeimage.png"
+              alt="Dress code inspiration"
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
         </div>
 
         {/* Color palette */}
         <div className="dresscode-animate mb-16">
           <h3 className="font-sans text-xs tracking-[0.3em] uppercase text-gold text-center mb-8">Color Palette</h3>
           <div className="flex justify-center">
-            <div className="grid grid-cols-3 md:grid-cols-5 gap-6 sm:gap-8 place-items-center">
+            <div className="grid grid-cols-3 gap-6 sm:gap-8 place-items-center">
               {colorPalette.map((color) => (
                 <div key={color.name} className="flex flex-col items-center gap-3">
                   <div
@@ -70,39 +79,6 @@ export default function DressCodeSection() {
                 </div>
               ))}
             </div>
-          </div>
-        </div>
-
-        {/* Dress suggestions */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="dresscode-animate">
-            <div className="aspect-[2/2.5] overflow-hidden rounded-sm mb-6 max-w-xs mx-auto">
-              <img
-                src="/sampleimage.jpg"
-                alt="Women's attire suggestions"
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
-            <h3 className="font-serif text-2xl text-foreground text-center mb-2">For the Ladies</h3>
-            <p className="font-sans text-sm text-muted-foreground text-center leading-relaxed">
-              Floor-length or midi cocktail dresses in sage green, gold, champagne, or olive tones. Elegant accessories with gold or pearl accents are encouraged.
-            </p>
-          </div>
-
-          <div className="dresscode-animate">
-            <div className="aspect-[2/2.5] overflow-hidden rounded-sm mb-6 max-w-xs mx-auto">
-              <img
-                src="/sampleimage.jpg"
-                alt="Men's attire suggestions"
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
-            <h3 className="font-serif text-2xl text-foreground text-center mb-2">For the Gentlemen</h3>
-            <p className="font-sans text-sm text-muted-foreground text-center leading-relaxed">
-              Dark suits in charcoal, navy, or black paired with sage green ties or pocket squares. A barong tagalog is also a wonderful choice.
-            </p>
           </div>
         </div>
       </div>

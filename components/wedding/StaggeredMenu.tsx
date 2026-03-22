@@ -175,6 +175,12 @@ export default function StaggeredMenu({
     if (openRef.current) {
       openRef.current = false
       setOpen(false)
+      const panel = panelRef.current
+      const active = document.activeElement as HTMLElement | null
+      if (panel && active && panel.contains(active)) {
+        active.blur()
+        toggleBtnRef.current?.focus()
+      }
       playClose()
       animateIcon(false)
       animateText(false)
@@ -287,6 +293,7 @@ export default function StaggeredMenu({
           className="fixed top-0 right-0 h-full flex flex-col p-16 pt-24 sm:p-20 sm:pt-28 overflow-y-auto z-[46] backdrop-blur-xl pointer-events-auto"
           style={{ width: 'clamp(260px, 38vw, 420px)', backgroundColor: 'hsl(60, 20%, 97%)' }}
           aria-hidden={!open}
+          inert={!open}
         >
           <div className="flex-1 flex flex-col gap-5">
             <ul className="list-none m-0 p-0 flex flex-col gap-6" role="list">

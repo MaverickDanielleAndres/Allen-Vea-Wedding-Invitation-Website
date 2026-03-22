@@ -7,16 +7,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 const timeline = [
-  { time: '2:30 PM', event: 'Guest Arrival', detail: 'Welcome drinks and seating at Haiku Gardens' },
-  { time: '3:00 PM', event: 'Ceremony Begins', detail: 'The exchange of vows under the floral arch' },
-  { time: '3:45 PM', event: 'Ring Exchange & Kiss', detail: 'The moment we\'ve been waiting for' },
-  { time: '4:00 PM', event: 'Cocktail Hour', detail: 'Light refreshments and photos at the garden' },
-  { time: '4:30 PM', event: 'Travel to Reception', detail: 'Transportation to The Willows Honolulu' },
-  { time: '6:00 PM', event: 'Reception Begins', detail: 'Welcome toast and dinner service' },
-  { time: '7:30 PM', event: 'First Dance', detail: 'Allen & Vea take the floor' },
-  { time: '8:00 PM', event: 'Toasts & Speeches', detail: 'Words from family and friends' },
-  { time: '8:30 PM', event: 'Open Dance Floor', detail: 'Dance the night away' },
-  { time: '10:30 PM', event: 'Sparkler Send-Off', detail: 'A magical farewell under the stars' },
+  { time: '10:30 AM', event: 'Ceremony', detail: 'Foster Botanical Garden' },
+  { time: '11:30 AM', event: 'Transition', detail: 'Travel to reception venue' },
+  { time: '12:00 PM', event: 'Reception', detail: "Max's Restaurant" },
+  { time: 'After Reception', event: 'Afterparty' },
 ]
 
 export default function TimelineSection() {
@@ -88,7 +82,7 @@ export default function TimelineSection() {
       <div className="max-w-3xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-16 sm:mb-20">
-          <p className="font-sans text-xs tracking-[0.3em] uppercase text-sage mb-3">The Schedule</p>
+          <p className="font-sans text-xs tracking-[0.3em] uppercase text-sage mb-3">Honolulu, Hawaii Time</p>
           <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-foreground">Our Day</h2>
           <div className="w-16 h-px bg-sage mx-auto mt-5" />
         </div>
@@ -113,7 +107,7 @@ export default function TimelineSection() {
                 <div className={`ml-12 sm:ml-0 sm:w-[45%] ${i % 2 === 0 ? 'sm:text-right sm:pr-10' : 'sm:text-left sm:pl-10'}`}>
                   <span className="font-sans text-xs tracking-[0.2em] uppercase text-gold font-medium">{item.time}</span>
                   <h3 className="font-serif text-xl sm:text-2xl text-foreground mt-1">{item.event}</h3>
-                  <p className="font-sans text-sm text-muted-foreground mt-1">{item.detail}</p>
+                  {item.detail ? <p className="font-sans text-sm text-muted-foreground mt-1">{item.detail}</p> : null}
                 </div>
 
                 {/* Spacer */}
