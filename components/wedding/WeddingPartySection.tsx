@@ -41,13 +41,18 @@ const entourageGroups: Array<{ title: string; people: EntouragePerson[] }> = [
   {
     title: 'Ninong and Ninang',
     people: [
-      { name: 'Remy Palatan', role: 'Ninong' },
-      { name: 'Lina Palatan', role: 'Ninang' },
       { name: 'Anacleto Bagaoisan', role: 'Ninong' },
       { name: 'Lanie Bagaoisan', role: 'Ninang' },
       { name: 'Nestor Pabilona', role: 'Ninong' },
       { name: 'Ruvelin Pabilona', role: 'Ninang' },
       { name: 'Jacqueline A. Luz', role: 'Ninang' },
+    ],
+  },
+  {
+    title: 'Special Participation',
+    people: [
+      { name: 'Remberto Palatan', role: 'Bride Parents' },
+      { name: 'Lina Palatan', role: 'Bride Parents' },
     ],
   },
   {
@@ -57,11 +62,7 @@ const entourageGroups: Array<{ title: string; people: EntouragePerson[] }> = [
       { name: 'Virginia Vargo', role: "Groom's Grand Parent" },
       { name: 'Joe Vargo', role: "Groom's Grand Parent" },
     ],
-  },
-  {
-    title: 'Guest',
-    people: [{ name: 'Charlesa Caraang', role: 'Guest' }],
-  },
+  }
 ]
 
 export default function WeddingPartySection() {
@@ -159,6 +160,17 @@ export default function WeddingPartySection() {
                 </div>
               )}
 
+              {group.title === 'Special Participation' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 max-w-4xl mx-auto">
+                  {group.people.map((person) => (
+                    <div key={person.name} className="text-center">
+                      <p className={nameClass}>{person.name}</p>
+                      <p className={roleClass}>{person.role}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
               {group.title === 'Ninong and Ninang' && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 max-w-4xl mx-auto">
                   {group.people.map((person, index) => {
@@ -177,7 +189,8 @@ export default function WeddingPartySection() {
               {group.title !== 'Our Parents' &&
                 group.title !== 'Bestman and Grooms Man' &&
                 group.title !== 'Brides Maid' &&
-                group.title !== 'Ninong and Ninang' && (
+                group.title !== 'Ninong and Ninang' &&
+                group.title !== 'Special Participation' && (
                   <div className={`grid gap-4 sm:gap-5 ${group.people.length === 3 ? 'grid-cols-1 md:grid-cols-3' : 'grid-cols-1'}`}>
                     {group.people.map((person) => (
                       <div key={person.name} className="text-center">
