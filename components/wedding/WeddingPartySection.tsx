@@ -34,8 +34,8 @@ const entourageGroups: Array<{ title: string; people: EntouragePerson[] }> = [
       { name: 'Aaron Ralph A Bagaoisan', role: 'Best Man' },
       { name: 'Brinden Peek', role: "Groom's Man" },
       { name: 'Reymund M. Palatan', role: "Groom's Man" },
-      { name: 'John ronnie Domingo', role: "Groom's Man" },
-      { name: 'Brndo C. Orpila', role: "Groom's Man" },
+      { name: 'John Ronnie Domingo', role: "Groom's Man" },
+      { name: 'Brando C. Orpila', role: "Groom's Man" },
     ],
   },
   {
