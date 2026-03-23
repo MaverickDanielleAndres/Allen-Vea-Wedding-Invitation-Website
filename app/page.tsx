@@ -8,30 +8,19 @@ import dynamic from 'next/dynamic'
 gsap.registerPlugin(ScrollTrigger)
 
 /* ───── Background Music Hook ───── */
-function useBackgroundMusic(shouldPlay: boolean) {
+function useBackgroundMusic() {
   const audioRef = useRef<HTMLAudioElement | null>(null)
+  const unlockedRef = useRef(false)
 
   useEffect(() => {
     if (typeof window === 'undefined') return
 
     if (!audioRef.current) {
-      audioRef.current = new Audio('/BGMUSIC.webm')
+      audioRef.current = new Audio('/BGMUSIC.mp3')
       audioRef.current.loop = true
-    }
-
-    if (shouldPlay && audioRef.current) {
-      // Start immediately at audible volume
-      audioRef.current.volume = 0.4
-      audioRef.current.play().catch(error => {
-        console.log('Audio autoplay prevented:', error)
-      })
-
-      // Quick fade to target volume
-      gsap.to(audioRef.current, { 
-        volume: 0.5, 
-        duration: 1, 
-        ease: 'linear' 
-      })
+      audioRef.current.preload = 'auto'
+      audioRef.current.setAttribute('playsinline', 'true')
+      audioRef.current.setAttribute('webkit-playsinline', 'true')
     }
 
     return () => {
@@ -40,9 +29,39 @@ function useBackgroundMusic(shouldPlay: boolean) {
         audioRef.current.currentTime = 0
       }
     }
-  }, [shouldPlay])
+  }, [])
 
-  return null
+  const unlockAudio = useCallback(() => {
+    if (!audioRef.current || unlockedRef.current) return
+
+    audioRef.current.volume = 0
+    audioRef.current.play().then(() => {
+      audioRef.current?.pause()
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0
+      }
+      unlockedRef.current = true
+    }).catch(error => {
+      console.log('Audio unlock failed:', error)
+    })
+  }, [])
+
+  const playMusic = useCallback(() => {
+    if (!audioRef.current) return
+
+    audioRef.current.volume = 0.4
+    audioRef.current.play().catch(error => {
+      console.log('Audio play prevented:', error)
+    })
+
+    gsap.to(audioRef.current, {
+      volume: 0.5,
+      duration: 1,
+      ease: 'linear'
+    })
+  }, [])
+
+  return { unlockAudio, playMusic }
 }
 
 const EnvelopeAnimation = dynamic(() => import('@/components/wedding/EnvelopeAnimation'), { ssr: false })
@@ -79,10 +98,7 @@ export default function WeddingPage() {
   const envelopeRef = useRef<HTMLDivElement>(null)
 
   const [showMain, setShowMain] = useState(false)
-  const [startMusic, setStartMusic] = useState(false)
-
-  // Start background music IMMEDIATELY when envelope completes (intro fades out)
-  useBackgroundMusic(startMusic)
+  const { unlockAudio, playMusic } = useBackgroundMusic()
 
   // Ensure page starts at the top on mount
   useEffect(() => {
@@ -116,8 +132,12 @@ export default function WeddingPage() {
 
   const handleMusicStart = useCallback(() => {
     // Start music immediately after Vea Lee Mantilla finishes typing
-    setStartMusic(true)
-  }, [])
+    playMusic()
+  }, [playMusic])
+
+  const handleInitialUserInteraction = useCallback(() => {
+    unlockAudio()
+  }, [unlockAudio])
 
   useLayoutEffect(() => {
     if (!showMain || !mainRef.current || !contentWrapperRef.current) return
@@ -199,6 +219,7 @@ export default function WeddingPage() {
           <EnvelopeAnimation 
             onComplete={handleEnvelopeComplete}
             onMusicStart={handleMusicStart}
+            onUserInteract={handleInitialUserInteraction}
           />
         </div>
       )}

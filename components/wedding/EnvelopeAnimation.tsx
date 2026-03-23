@@ -6,6 +6,7 @@ import { gsap } from 'gsap'
 interface EnvelopeAnimationProps {
   onComplete: () => void
   onMusicStart?: () => void
+  onUserInteract?: () => void
 }
 
 /* ───── Dramatic Typing Sub-component ───── */
@@ -112,7 +113,7 @@ function DramaticTyping({
 }
 
 /* ───── Main Envelope Animation ───── */
-export default function EnvelopeAnimation({ onComplete, onMusicStart }: EnvelopeAnimationProps) {
+export default function EnvelopeAnimation({ onComplete, onMusicStart, onUserInteract }: EnvelopeAnimationProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const envelopeWrapperRef = useRef<HTMLDivElement>(null)
   const cardRef = useRef<HTMLDivElement>(null)
@@ -166,6 +167,10 @@ export default function EnvelopeAnimation({ onComplete, onMusicStart }: Envelope
   // Click → open
   const handleOpen = useCallback(() => {
     if (stage !== 'idle') return
+
+    // iOS Safari requires audio to be unlocked in a direct user gesture.
+    onUserInteract?.()
+
     setStage('opening')
 
     const tl = gsap.timeline({
@@ -222,7 +227,7 @@ export default function EnvelopeAnimation({ onComplete, onMusicStart }: Envelope
       ease: 'power3.inOut',
     }, 'separate')
 
-  }, [stage])
+  }, [stage, onUserInteract])
 
   // Transition phase - card returns to EXACT center
   useEffect(() => {
