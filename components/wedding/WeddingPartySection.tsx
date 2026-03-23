@@ -22,6 +22,13 @@ const entourageGroups: Array<{ title: string; people: EntouragePerson[] }> = [
     ],
   },
   {
+    title: 'Special Participation',
+    people: [
+      { name: 'Remberto Palatan', role: "As Bride's Parents" },
+      { name: 'Lina Palatan', role: "As Bride's Parents" },
+    ],
+  },
+  {
     title: "Bestman and Grooms Man",
     people: [
       { name: 'Aaron Ralph A Bagaoisan', role: 'Best Man' },
@@ -48,13 +55,7 @@ const entourageGroups: Array<{ title: string; people: EntouragePerson[] }> = [
       { name: 'Jacqueline A. Luz', role: 'Ninang' },
     ],
   },
-  {
-    title: 'Special Participation',
-    people: [
-      { name: 'Remberto Palatan', role: 'Bride Parents' },
-      { name: 'Lina Palatan', role: 'Bride Parents' },
-    ],
-  },
+  
   {
     title: 'Grandparents',
     people: [
