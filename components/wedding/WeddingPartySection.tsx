@@ -52,7 +52,7 @@ const entourageGroups: Array<{ title: string; people: EntouragePerson[] }> = [
       { name: 'Lanie Bagaoisan', role: 'Ninang' },
       { name: 'Nestor Pabilona', role: 'Ninong' },
       { name: 'Ruvelin Pabilona', role: 'Ninang' },
-      { name: 'Jacqueline A. Luz', role: 'Ninang' },
+      { name: 'Jacqueline Aribuabo', role: 'Ninang' },
     ],
   },
   
